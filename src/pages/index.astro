@@ -1,0 +1,209 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import Gallery from '@/components/Gallery.astro';
+import ReviewCard from '@/components/ReviewCard.astro';
+import MasterCard from '@/components/MasterCard.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import BookButton from '@/components/BookButton.astro';
+import PhoneBar from '@/components/PhoneBar.astro';
+import { site } from '@/data/site';
+import { serviceCategories } from '@/data/services';
+import { masters } from '@/data/masters';
+import { reviews } from '@/data/reviews';
+import { faq } from '@/data/faq';
+import { gallery } from '@/data/gallery';
+import { withBase } from '@/lib/paths';
+import { ROUTES } from '@/lib/routes';
+
+const title = site.name;
+const description = site.description;
+
+const galleryPreview = gallery.slice(0, 6);
+const faqPreview = faq.slice(0, 4);
+
+const advantages = [
+  {
+    title: 'Досвідчені майстри',
+    text: 'Наша команда постійно підвищує кваліфікацію та стежить за трендами бʼюті-індустрії.',
+  },
+  {
+    title: 'Стерильність та безпека',
+    text: 'Використовуємо якісні матеріали та дотримуємось усіх санітарних норм на кожній процедурі.',
+  },
+  {
+    title: 'Індивідуальний підхід',
+    text: 'Підбираємо процедури й техніки під ваші побажання, тип шкіри та структуру волосся.',
+  },
+  {
+    title: 'Затишна атмосфера',
+    text: 'Комфортний простір, у якому приємно провести час, доглядаючи за собою.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <Hero
+    eyebrow="Салон краси у серці міста"
+    title={`${site.name} — краса, якій довіряють`}
+    subtitle="Манікюр, педикюр, стрижки, нарощування волосся, брови, фарбування та косметологія в одному затишному салоні."
+    image="/images/hero.svg"
+    imageAlt="Інтер'єр салону краси Lady Victoria"
+  />
+
+  <section class="section container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Каталог послуг</span>
+      <h2>Наші послуги</h2>
+      <p class="lead">Оберіть напрямок — на сторінці послуги ви знайдете повний прайс і тривалість процедур.</p>
+    </div>
+    <div class="grid grid-3">
+      {serviceCategories.map((category) => <ServiceCard category={category} />)}
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Чому обирають нас</span>
+        <h2>Головне для нас — ваш результат і комфорт</h2>
+      </div>
+      <div class="grid grid-4">
+        {
+          advantages.map((item) => (
+            <div class="advantage-card card" data-reveal>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <span class="eyebrow">Галерея</span>
+      <h2>Приклади наших робіт</h2>
+    </div>
+    <Gallery items={galleryPreview} />
+    <p class="gallery-more">
+      <a href={withBase(ROUTES.gallery)}>Дивитись усю галерею →</a>
+    </p>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Майстри</span>
+        <h2>Наша команда</h2>
+      </div>
+      <div class="grid grid-4">
+        {masters.map((master) => <MasterCard master={master} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <span class="eyebrow">Відгуки</span>
+      <h2>Що кажуть наші клієнтки</h2>
+    </div>
+    <div class="grid grid-3">
+      {reviews.map((review) => <ReviewCard review={review} />)}
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Питання</span>
+        <h2>Часті запитання</h2>
+      </div>
+      <FaqAccordion items={faqPreview} />
+      <p class="faq-more">
+        <a href={withBase(ROUTES.faq)}>Усі запитання та відповіді →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="cta-final" data-reveal>
+      <h2>Запишіться на процедуру вже сьогодні</h2>
+      <p class="lead">
+        {
+          site.instagram
+            ? 'Напишіть нам в Instagram Direct або зателефонуйте — підберемо зручний час візиту.'
+            : 'Зателефонуйте нам — підберемо зручний час візиту.'
+        }
+      </p>
+      <div class="cta-final__actions">
+        <BookButton />
+        <PhoneBar variant="block" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .advantage-card {
+    padding: var(--space-5);
+  }
+
+  .advantage-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .advantage-card p {
+    color: var(--color-text-soft);
+    margin-bottom: 0;
+  }
+
+  .gallery-more,
+  .faq-more {
+    margin-top: var(--space-5);
+  }
+
+  .gallery-more a,
+  .faq-more a {
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .cta-final {
+    text-align: center;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .cta-final h2 {
+    color: var(--color-on-primary);
+  }
+
+  .cta-final .lead {
+    color: var(--color-gold-100);
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-final__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .cta-final :global(.phone-bar__link) {
+    color: var(--color-ivory-100);
+  }
+
+  .cta-final :global(.phone-bar__copy) {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-ivory-200);
+  }
+</style>

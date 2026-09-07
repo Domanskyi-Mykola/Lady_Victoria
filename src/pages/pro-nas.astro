@@ -1,0 +1,120 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookButton from '@/components/BookButton.astro';
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+import { ROUTES } from '@/lib/routes';
+
+const title = 'Про нас';
+const description = `Салон краси ${site.name}: команда досвідчених майстрів, якісні матеріали та затишна атмосфера. Дізнайтесь більше про наші цінності та підхід до роботи.`;
+
+const values = [
+  {
+    title: 'Якість понад усе',
+    text: 'Працюємо лише з перевіреними професійними матеріалами та стежимо за новими техніками в галузі.',
+  },
+  {
+    title: 'Чесність із клієнтом',
+    text: 'Завжди озвучуємо реальну вартість і тривалість процедури ще до її початку.',
+  },
+  {
+    title: 'Гігієна та безпека',
+    text: 'Дотримуємось санітарних норм, використовуємо стерильні інструменти на кожній процедурі.',
+  },
+  {
+    title: 'Розвиток команди',
+    text: 'Майстри регулярно проходять навчання та курси підвищення кваліфікації.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section container about-hero">
+    <div>
+      <span class="eyebrow">Про салон</span>
+      <h1>{site.name}</h1>
+      <p class="lead">
+        Ми створили простір, де кожна клієнтка може розслабитися та довірити свою красу професіоналам. Наша команда
+        обʼєднує майстрів манікюру, педикюру, перукарів, косметологів і броу-майстрів — усе необхідне для комплексного
+        догляду за собою в одному місці.
+      </p>
+      <BookButton />
+    </div>
+    <img src={withBase('/images/about.svg')} alt="Інтер'єр салону краси Lady Victoria" width="560" height="420" />
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Наші цінності</span>
+        <h2>Що для нас важливо</h2>
+      </div>
+      <div class="grid grid-4">
+        {
+          values.map((item) => (
+            <div class="card about-value" data-reveal>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section container about-team">
+    <h2>Познайомтесь із нашою командою</h2>
+    <p class="lead">Кожен майстер спеціалізується на своєму напрямку та відповідально ставиться до результату.</p>
+    <a href={withBase(ROUTES.masters)} class="btn btn-outline">Наші майстри</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .about-hero img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .about-value {
+    padding: var(--space-5);
+  }
+
+  .about-value h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .about-value p {
+    color: var(--color-text-soft);
+    margin-bottom: 0;
+  }
+
+  .about-team {
+    text-align: center;
+  }
+
+  .about-team .lead {
+    max-width: 60ch;
+    margin-inline: auto;
+    margin-bottom: var(--space-5);
+  }
+
+  @media (max-width: 860px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .about-hero img {
+      order: -1;
+    }
+  }
+</style>

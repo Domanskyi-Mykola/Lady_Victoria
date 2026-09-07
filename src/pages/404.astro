@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookButton from '@/components/BookButton.astro';
+import { withBase } from '@/lib/paths';
+import { ROUTES } from '@/lib/routes';
+
+const title = 'Сторінку не знайдено';
+const description = 'Такої сторінки не існує. Поверніться на головну або перегляньте каталог послуг.';
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <section class="section container not-found">
+    <span class="eyebrow">404</span>
+    <h1>Сторінку не знайдено</h1>
+    <p class="lead">Можливо, вона була переміщена або такої адреси ніколи не існувало.</p>
+    <div class="not-found__actions">
+      <a href={withBase(ROUTES.home)} class="btn btn-primary">На головну</a>
+      <a href={withBase(ROUTES.services)} class="btn btn-outline">Каталог послуг</a>
+    </div>
+    <p class="not-found__or">або</p>
+    <BookButton instagramLabel="Написати нам в Instagram" />
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding-block: var(--space-9);
+    max-width: 560px;
+    margin-inline: auto;
+    display: grid;
+    justify-items: center;
+  }
+
+  .not-found__actions {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  .not-found__or {
+    margin: var(--space-5) 0 0;
+    color: var(--color-text-soft);
+  }
+</style>

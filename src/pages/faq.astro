@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import { site } from '@/data/site';
+import { faq } from '@/data/faq';
+import { buildFaqSchema } from '@/lib/schema';
+
+const title = 'Часті запитання';
+const description = `Відповіді на часті запитання про запис, оплату та процедури в салоні краси ${site.name}.`;
+const faqSchema = buildFaqSchema(faq);
+---
+
+<BaseLayout title={title} description={description} structuredData={[faqSchema]}>
+  <section class="section container faq-page">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Питання та відповіді</span>
+      <h1>Часті запитання</h1>
+    </div>
+    <FaqAccordion items={faq} />
+  </section>
+</BaseLayout>
+
+<style>
+  .faq-page {
+    max-width: 780px;
+    margin-inline: auto;
+  }
+</style>

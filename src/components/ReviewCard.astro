@@ -1,0 +1,64 @@
+---
+import type { Review } from '@/data/reviews';
+
+interface Props {
+  review: Review;
+}
+
+const { review } = Astro.props;
+---
+
+<article class="review-card card" data-reveal>
+  <div class="review-card__rating" aria-label={`Оцінка ${review.rating} з 5`}>
+    {Array.from({ length: 5 }).map((_, i) => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill={i < review.rating ? 'currentColor' : 'none'} aria-hidden="true">
+        <path
+          d="m12 3 2.8 5.9 6.4.8-4.7 4.5 1.2 6.3L12 17.7l-5.7 2.8 1.2-6.3-4.7-4.5 6.4-.8L12 3Z"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linejoin="round"
+        />
+      </svg>
+    ))}
+  </div>
+  <p class="review-card__text">«{review.text}»</p>
+  <p class="review-card__meta">
+    <span class="review-card__name">{review.name}</span>
+    <span aria-hidden="true">·</span>
+    <span>{review.service}</span>
+  </p>
+</article>
+
+<style>
+  .review-card {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .review-card__rating {
+    display: flex;
+    gap: 2px;
+    color: var(--color-accent);
+  }
+
+  .review-card__text {
+    margin: 0;
+    color: var(--color-text);
+    flex: 1;
+  }
+
+  .review-card__meta {
+    display: flex;
+    gap: var(--space-2);
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+    margin: 0;
+  }
+
+  .review-card__name {
+    font-weight: 700;
+    color: var(--color-primary-strong);
+  }
+</style>

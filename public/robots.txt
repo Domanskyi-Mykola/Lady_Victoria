@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://domanskyi-mykola.github.io/Lady_Victoria/sitemap-index.xml

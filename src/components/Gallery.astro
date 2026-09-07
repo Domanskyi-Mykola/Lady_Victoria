@@ -1,0 +1,170 @@
+---
+import type { GalleryItem } from '@/data/gallery';
+import { serviceCategories } from '@/data/services';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  items: GalleryItem[];
+  showFilters?: boolean;
+}
+
+const { items, showFilters = false } = Astro.props;
+
+const usedSlugs = new Set(items.map((item) => item.category));
+const filters = serviceCategories.filter((category) => usedSlugs.has(category.slug));
+---
+
+<div class="gallery">
+  {
+    showFilters && filters.length > 1 && (
+      <div class="gallery__filters" role="group" aria-label="Фільтр галереї за категорією">
+        <button type="button" class="btn btn-outline btn-sm" data-gallery-filter="all" aria-pressed="true">
+          Усі роботи
+        </button>
+        {filters.map((category) => (
+          <button type="button" class="btn btn-outline btn-sm" data-gallery-filter={category.slug} aria-pressed="false">
+            {category.title}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  <div class="gallery__grid">
+    {
+      items.map((item, index) => (
+        <div class="gallery__cell" data-gallery-item data-category={item.category}>
+          <button
+            type="button"
+            class="gallery__trigger"
+            data-lightbox-item
+            data-image={withBase(item.image)}
+            data-alt={item.alt}
+            aria-label={`Відкрити фото більшим планом: ${item.alt}`}
+          >
+            <img src={withBase(item.image)} alt={item.alt} loading={index < 3 ? 'eager' : 'lazy'} width="480" height="480" />
+          </button>
+        </div>
+      ))
+    }
+  </div>
+
+  <dialog class="lightbox" data-lightbox aria-label="Перегляд фото">
+    <button type="button" class="lightbox__close" data-lightbox-close aria-label="Закрити">✕</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Попереднє фото">‹</button>
+    <img data-lightbox-image alt="" />
+    <button type="button" class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Наступне фото">›</button>
+  </dialog>
+</div>
+
+<script type="module" is:inline src={withBase('/scripts/gallery-lightbox.js')}></script>
+<script type="module" is:inline src={withBase('/scripts/gallery-filter.js')}></script>
+
+<style>
+  .gallery__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .gallery__filters .btn[aria-pressed='true'] {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    border-color: var(--color-primary);
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  .gallery__trigger {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .gallery__trigger img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+
+  .gallery__trigger:hover img {
+    transform: scale(1.04);
+  }
+
+  @media (max-width: 860px) {
+    .gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+  }
+
+  .lightbox {
+    border: none;
+    background: transparent;
+    padding: 0;
+    max-width: min(90vw, 900px);
+    max-height: 90vh;
+  }
+
+  .lightbox::backdrop {
+    background: rgba(42, 32, 36, 0.85);
+  }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+
+  .lightbox__close,
+  .lightbox__nav {
+    position: fixed;
+    background: rgba(253, 250, 246, 0.9);
+    color: var(--color-primary-strong);
+    border: none;
+    border-radius: 50%;
+    width: 2.6em;
+    height: 2.6em;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox__close {
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .lightbox__nav--prev {
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lightbox__nav--next {
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+</style>

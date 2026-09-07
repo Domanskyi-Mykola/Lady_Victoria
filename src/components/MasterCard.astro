@@ -1,0 +1,56 @@
+---
+import type { Master } from '@/data/masters';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  master: Master;
+}
+
+const { master } = Astro.props;
+---
+
+<article class="master-card card" data-reveal>
+  <img src={withBase(master.image)} alt={`Фото майстра ${master.name}`} width="320" height="320" loading="lazy" />
+  <div class="master-card__body">
+    <h3>{master.name}</h3>
+    <p class="master-card__role">{master.role}</p>
+    <p class="master-card__experience">{master.experience}</p>
+    <p>{master.bio}</p>
+  </div>
+</article>
+
+<style>
+  .master-card {
+    overflow: hidden;
+  }
+
+  .master-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .master-card__body {
+    padding: var(--space-5);
+  }
+
+  .master-card__body h3 {
+    margin-bottom: var(--space-1);
+  }
+
+  .master-card__role {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .master-card__experience {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .master-card__body p:last-child {
+    margin-bottom: 0;
+  }
+</style>

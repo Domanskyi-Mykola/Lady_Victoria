@@ -1,0 +1,109 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookButton from '@/components/BookButton.astro';
+import { site } from '@/data/site';
+
+const title = 'Акції та сертифікати';
+const description = `Подарункові сертифікати та актуальні акції салону краси ${site.name}.`;
+
+// TODO: коли з'являться реальні акції — додай сюди картки за тим самим
+// зразком, що й у values нижче (title + text), або зверни в окремий
+// src/data/promotions.ts, якщо акцій стане багато.
+const activePromotions: { title: string; text: string }[] = [];
+
+// TODO: підтверди номінали сертифікатів або зроби їх довільними.
+const certificateAmounts = ['500 ₴', '1000 ₴', '1500 ₴', '2000 ₴'];
+
+const hasInstagram = Boolean(site.instagram);
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Акції та подарунки</span>
+      <h1>Акції та подарункові сертифікати</h1>
+    </div>
+
+    {
+      activePromotions.length > 0 ? (
+        <div class="grid grid-3">
+          {activePromotions.map((promo) => (
+            <div class="card promo-card" data-reveal>
+              <h3>{promo.title}</h3>
+              <p>{promo.text}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state" data-reveal>
+          <p class="lead">
+            {
+              hasInstagram
+                ? 'Наразі активних акцій немає. Слідкуйте за оновленнями в нашому Instagram!'
+                : 'Наразі активних акцій немає. Зателефонуйте нам, щоб дізнатися про актуальні пропозиції.'
+            }
+          </p>
+          <BookButton instagramLabel="Стежити в Instagram" phoneLabel="Зателефонувати" />
+        </div>
+      )
+    }
+  </section>
+
+  <section class="section section--alt">
+    <div class="container certificate">
+      <div>
+        <span class="eyebrow">Подарунок близькій людині</span>
+        <h2>Подарунковий сертифікат Lady Victoria</h2>
+        <p class="lead">
+          Даруйте красу та турботу про себе — сертифікат можна витратити на будь-яку послугу салону: манікюр,
+          педикюр, стрижку, фарбування, брови чи косметологію.
+        </p>
+        <ul class="certificate__amounts">
+          {certificateAmounts.map((amount) => <li>{amount}</li>)}
+        </ul>
+        <p>
+          {
+            hasInstagram
+              ? 'Щоб оформити сертифікат, напишіть нам в Instagram або зателефонуйте — узгодимо суму та спосіб передачі.'
+              : 'Щоб оформити сертифікат, зателефонуйте нам — узгодимо суму та спосіб передачі.'
+          }
+        </p>
+        <BookButton instagramLabel="Замовити сертифікат" phoneLabel="Замовити сертифікат" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .promo-card {
+    padding: var(--space-5);
+  }
+
+  .empty-state {
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8) var(--space-5);
+    display: grid;
+    gap: var(--space-5);
+    justify-items: center;
+  }
+
+  .certificate__amounts {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: 0;
+    margin: var(--space-5) 0;
+  }
+
+  .certificate__amounts li {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 0.5em 1.2em;
+    font-weight: 700;
+    color: var(--color-primary-strong);
+  }
+</style>

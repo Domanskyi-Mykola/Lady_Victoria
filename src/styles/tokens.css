@@ -1,0 +1,81 @@
+:root {
+  /* Кольори бренду — глибокий сливово-бордовий + шампань-золото + айворі */
+  --color-plum-900: #3a1220;
+  --color-plum-800: #4d1a2c;
+  --color-plum-700: #6b2438;
+  --color-plum-600: #8a2f47;
+
+  --color-gold-500: #b98a4a;
+  --color-gold-400: #c9a06a;
+  --color-gold-300: #dcbd8c;
+  --color-gold-100: #f2e4cd;
+
+  --color-ivory-100: #fdfaf6;
+  --color-ivory-200: #f8f1e7;
+  --color-ivory-300: #f0e4d3;
+
+  --color-ink: #2a2024;
+  --color-ink-soft: #5a4a4f;
+  --color-white: #ffffff;
+  --color-success: #3f7a53;
+  --color-danger: #a4324a;
+
+  /* Семантичні токени */
+  --color-bg: var(--color-ivory-100);
+  --color-bg-alt: var(--color-ivory-200);
+  --color-surface: var(--color-white);
+  --color-text: var(--color-ink);
+  --color-text-soft: var(--color-ink-soft);
+  --color-primary: var(--color-plum-700);
+  --color-primary-strong: var(--color-plum-900);
+  --color-accent: var(--color-gold-500);
+  --color-accent-soft: var(--color-gold-100);
+  --color-border: #e6d7c3;
+
+  --color-on-primary: var(--color-ivory-100);
+  --color-on-accent: var(--color-plum-900);
+
+  /* Типографіка */
+  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --fs-h1: clamp(2.25rem, 1.7rem + 2.4vw, 3.75rem);
+  --fs-h2: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.3vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+
+  /* Відступи */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6rem;
+
+  --container-width: 1180px;
+  --container-padding: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Форма */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 999px;
+
+  /* Тіні */
+  --shadow-sm: 0 2px 8px rgba(58, 18, 32, 0.06);
+  --shadow-md: 0 10px 30px rgba(58, 18, 32, 0.1);
+  --shadow-lg: 0 20px 50px rgba(58, 18, 32, 0.16);
+
+  /* Анімації */
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration-fast: 160ms;
+  --duration-base: 260ms;
+
+  /* Sticky mobile CTA */
+  --sticky-cta-height: 68px;
+}

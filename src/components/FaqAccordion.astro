@@ -1,0 +1,68 @@
+---
+import type { FaqItem } from '@/data/faq';
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq-accordion">
+  {
+    items.map((item) => (
+      <details class="faq-accordion__item">
+        <summary>
+          {item.question}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="faq-accordion__icon">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </summary>
+        <p>{item.answer}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq-accordion {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .faq-accordion__item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .faq-accordion__item summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--color-primary-strong);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .faq-accordion__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-accordion__icon {
+    flex-shrink: 0;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .faq-accordion__item[open] .faq-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-accordion__item p {
+    margin: var(--space-3) 0 0;
+    color: var(--color-text-soft);
+  }
+</style>

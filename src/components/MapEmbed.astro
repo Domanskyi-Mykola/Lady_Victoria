@@ -1,0 +1,67 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+
+const mapSrc = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=15&output=embed`;
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site.geo.lat},${site.geo.lng}`;
+---
+
+<div class="map-embed">
+  <div class="map-embed__placeholder" data-map-placeholder>
+    <button type="button" class="btn btn-primary" data-map-trigger data-map-src={mapSrc}>
+      Показати карту
+    </button>
+    <p class="map-embed__note">Карта завантажиться від Google лише після натискання цієї кнопки.</p>
+  </div>
+</div>
+
+<p class="map-embed__directions">
+  <a href={directionsUrl} target="_blank" rel="noopener noreferrer">Прокласти маршрут →</a>
+</p>
+
+<script type="module" is:inline src={withBase('/scripts/map-embed.js')}></script>
+
+<style>
+  .map-embed {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .map-embed__placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-border);
+    text-align: center;
+    padding: var(--space-5);
+  }
+
+  .map-embed__note {
+    margin: 0;
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+    max-width: 28ch;
+  }
+
+  .map-embed :global(.map-embed__frame) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    display: block;
+  }
+
+  .map-embed__directions {
+    margin-top: var(--space-3);
+  }
+
+  .map-embed__directions a {
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+</style>

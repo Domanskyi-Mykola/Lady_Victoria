@@ -1,0 +1,103 @@
+---
+import type { ServiceItem } from '@/data/services';
+
+interface Props {
+  items: ServiceItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<table class="price-table">
+  <caption class="visually-hidden">Прайс-лист</caption>
+  <thead>
+    <tr>
+      <th scope="col">Послуга</th>
+      <th scope="col">Тривалість</th>
+      <th scope="col">Ціна</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      items.map((item) => (
+        <tr>
+          <td data-label="Послуга">{item.name}</td>
+          <td data-label="Тривалість">{item.duration ?? '—'}</td>
+          <td data-label="Ціна" class="price-table__price">
+            {item.price}
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<style>
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .price-table th,
+  .price-table td {
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .price-table th {
+    font-size: var(--fs-small);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    background: var(--color-bg-alt);
+  }
+
+  .price-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .price-table__price {
+    font-weight: 700;
+    color: var(--color-primary-strong);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .price-table thead {
+      display: none;
+    }
+
+    .price-table,
+    .price-table tbody,
+    .price-table tr,
+    .price-table td {
+      display: block;
+      width: 100%;
+    }
+
+    .price-table tr {
+      padding: var(--space-4) var(--space-5);
+    }
+
+    .price-table td {
+      border-bottom: none;
+      padding: var(--space-1) 0;
+    }
+
+    .price-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: var(--fs-small);
+      color: var(--color-text-soft);
+    }
+
+    .price-table tr:not(:last-child) {
+      border-bottom: 1px solid var(--color-border);
+    }
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ReviewCard from '@/components/ReviewCard.astro';
+import BookButton from '@/components/BookButton.astro';
+import { site } from '@/data/site';
+import { reviews } from '@/data/reviews';
+
+const title = 'Відгуки клієнток';
+const description = `Відгуки клієнток салону краси ${site.name} про манікюр, педикюр, стрижки, косметологію та інші процедури.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Відгуки</span>
+      <h1>Що кажуть наші клієнтки</h1>
+      <p class="lead">Нам важлива ваша думка — вона допомагає ставати кращими.</p>
+    </div>
+
+    <div class="grid grid-3">
+      {reviews.map((review) => <ReviewCard review={review} />)}
+    </div>
+
+    <div class="reviews-cta" data-reveal>
+      <h2>Записались на процедуру? Поділіться враженнями!</h2>
+      <p class="lead">
+        {site.instagram ? 'Будемо вдячні за відгук у нашому Instagram-профілі.' : 'Будемо вдячні почути ваш відгук!'}
+      </p>
+      <BookButton instagramLabel="Написати нам" phoneLabel="Зателефонувати" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .reviews-cta {
+    margin-top: var(--space-8);
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .reviews-cta h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .reviews-cta .lead {
+    margin-bottom: var(--space-5);
+  }
+</style>

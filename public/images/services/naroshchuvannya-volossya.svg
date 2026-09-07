@@ -1,0 +1,21 @@
+<svg width="480" height="320" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="g3" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#4d1a2c"/>
+      <stop offset="100%" stop-color="#3a1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="320" fill="url(#g3)"/>
+  <circle cx="408.0" cy="272.0" r="153.6" fill="#b98a4a" opacity="0.10"/>
+  <circle cx="96.0" cy="256.0" r="44.800000000000004" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.22"/>
+    <circle cx="96.0" cy="256.0" r="70.80000000000001" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.17"/>
+    <circle cx="96.0" cy="256.0" r="96.80000000000001" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.12"/>
+  <g transform="translate(240.0,160.0) scale(1.600)" stroke="#f2e4cd" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    
+      <path d="M-30,-46 C-40,-16 -20,4 -30,44"/>
+      <path d="M-10,-50 C-20,-18 0,2 -10,48"/>
+      <path d="M12,-50 C2,-18 22,2 12,48"/>
+      <path d="M32,-46 C22,-16 42,4 32,44"/>
+    
+  </g>
+</svg>

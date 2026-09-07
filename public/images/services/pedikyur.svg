@@ -1,0 +1,24 @@
+<svg width="480" height="320" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="g1" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4d1a2c"/>
+      <stop offset="100%" stop-color="#3a1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="320" fill="url(#g1)"/>
+  <circle cx="408.0" cy="272.0" r="153.6" fill="#b98a4a" opacity="0.10"/>
+  <circle cx="96.0" cy="256.0" r="44.800000000000004" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.22"/>
+    <circle cx="96.0" cy="256.0" r="70.80000000000001" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.17"/>
+    <circle cx="96.0" cy="256.0" r="96.80000000000001" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.12"/>
+  <g transform="translate(240.0,160.0) scale(1.600)" stroke="#f2e4cd" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    
+      <ellipse cx="0" cy="20" rx="20" ry="30"/>
+      <ellipse cx="-4" cy="-24" rx="13" ry="16"/>
+      <circle cx="-22" cy="-38" r="4"/>
+      <circle cx="-10" cy="-46" r="4.4"/>
+      <circle cx="4" cy="-48" r="4.4"/>
+      <circle cx="17" cy="-44" r="4"/>
+      <circle cx="27" cy="-36" r="3.4"/>
+    
+  </g>
+</svg>
