@@ -1,0 +1,177 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+import { ROUTES, NAV_LINKS } from '@/lib/routes';
+import PhoneBar from './PhoneBar.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <p class="site-footer__logo">{site.name}</p>
+      <p class="lead">{site.tagline}</p>
+      {
+        site.instagram && (
+          <a href={site.instagram} target="_blank" rel="noopener noreferrer nofollow" class="site-footer__social">
+            Instagram
+          </a>
+        )
+      }
+    </div>
+
+    <div>
+      <h2 class="site-footer__heading">Навігація</h2>
+      <ul class="site-footer__list">
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a href={withBase(link.href)}>{link.label}</a>
+            </li>
+          ))
+        }
+        <li><a href={withBase(ROUTES.faq)}>FAQ</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="site-footer__heading">Контакти</h2>
+      <p><PhoneBar variant="inline" /></p>
+      <p>{site.address.full}</p>
+      {site.email && <p><a href={`mailto:${site.email}`}>{site.email}</a></p>}
+    </div>
+
+    <div>
+      <h2 class="site-footer__heading">Графік роботи</h2>
+      <ul class="site-footer__hours">
+        {
+          site.hours.map((entry) => (
+            <li>
+              <span>{entry.days}</span>
+              <span>{entry.time}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>&copy; {year} {site.name}. Усі права захищено.</p>
+    <a href={withBase(ROUTES.privacy)}>Політика конфіденційності</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-primary-strong);
+    color: var(--color-ivory-200);
+    padding-block: var(--space-8) var(--space-5);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .site-footer__logo {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-ivory-100);
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer .lead {
+    color: var(--color-gold-300);
+  }
+
+  .site-footer__social {
+    display: inline-block;
+    margin-top: var(--space-3);
+    color: var(--color-gold-300);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-gold-300);
+  }
+
+  .site-footer__heading {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-gold-300);
+    margin-bottom: var(--space-4);
+  }
+
+  .site-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .site-footer__list a {
+    color: var(--color-ivory-200);
+    text-decoration: none;
+  }
+
+  .site-footer__list a:hover {
+    color: var(--color-gold-300);
+  }
+
+  .site-footer :global(.phone-bar__link) {
+    color: var(--color-ivory-100);
+  }
+
+  .site-footer :global(.phone-bar__copy) {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--color-ivory-200);
+  }
+
+  .site-footer__hours {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--fs-small);
+  }
+
+  .site-footer__hours li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .site-footer__bottom {
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-size: var(--fs-small);
+    color: var(--color-gold-100);
+  }
+
+  .site-footer__bottom a {
+    color: var(--color-gold-100);
+  }
+
+  @media (max-width: 860px) {
+    .site-footer__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

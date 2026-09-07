@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import MasterCard from '@/components/MasterCard.astro';
+import BookButton from '@/components/BookButton.astro';
+import { site } from '@/data/site';
+import { masters } from '@/data/masters';
+
+const title = 'Майстри';
+const description = `Команда салону краси ${site.name}: майстри манікюру, перукарі, колористи, броу-майстри та косметолог. Досвід, спеціалізація та підхід до роботи кожного майстра.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Наша команда</span>
+      <h1>Майстри салону</h1>
+      <p class="lead">Кожна процедура виконується профільним спеціалістом, який відповідає за свій напрямок.</p>
+    </div>
+
+    <div class="grid grid-4">
+      {masters.map((master) => <MasterCard master={master} />)}
+    </div>
+
+    <div class="masters-cta" data-reveal>
+      <h2>Хочете записатися до конкретного майстра?</h2>
+      <p class="lead">
+        {
+          site.instagram
+            ? 'Напишіть нам в Instagram або зателефонуйте — вкажемо, коли майстер вільний.'
+            : 'Зателефонуйте нам — вкажемо, коли майстер вільний.'
+        }
+      </p>
+      <BookButton />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .masters-cta {
+    margin-top: var(--space-8);
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .masters-cta h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .masters-cta .lead {
+    margin-bottom: var(--space-5);
+  }
+</style>

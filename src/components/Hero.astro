@@ -1,0 +1,81 @@
+---
+import BookButton from './BookButton.astro';
+import PhoneBar from './PhoneBar.astro';
+import { withBase } from '@/lib/paths';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  imageAlt: string;
+}
+
+const { eyebrow, title, subtitle, image, imageAlt } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">{eyebrow}</span>
+      <h1>{title}</h1>
+      <p class="lead">{subtitle}</p>
+      <div class="hero__actions">
+        <BookButton />
+        <PhoneBar variant="block" />
+      </div>
+    </div>
+    <div class="hero__media">
+      <img src={withBase(image)} alt={imageAlt} width="620" height="620" fetchpriority="high" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-9) var(--space-8);
+    background:
+      radial-gradient(circle at 18% 20%, var(--color-gold-100) 0%, transparent 45%),
+      linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  .hero__content h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__media {
+      order: -1;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

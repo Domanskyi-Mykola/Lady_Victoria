@@ -1,0 +1,189 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+import { ROUTES, NAV_LINKS } from '@/lib/routes';
+import PhoneBar from './PhoneBar.astro';
+import BookButton from './BookButton.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href={withBase(ROUTES.home)} class="site-header__logo">
+      <span class="site-header__logo-mark" aria-hidden="true">LV</span>
+      <span class="site-header__logo-text">{site.name}</span>
+    </a>
+
+    <button
+      type="button"
+      class="site-header__toggle"
+      data-nav-toggle
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Відкрити меню"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="site-nav" class="site-header__nav" data-nav-menu data-open="false" aria-label="Основна навігація">
+      <ul>
+        {
+          NAV_LINKS.map((link) => {
+            const href = withBase(link.href);
+            const isActive = currentPath === href;
+            return (
+              <li>
+                <a href={href} aria-current={isActive ? 'page' : undefined}>
+                  {link.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <PhoneBar />
+      <BookButton size="sm" />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 400;
+    background: rgba(253, 250, 246, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+  }
+
+  .site-header__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--color-primary-strong);
+  }
+
+  .site-header__logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4em;
+    height: 2.4em;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .site-header__logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .site-header__nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--space-5);
+  }
+
+  .site-header__nav a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-text);
+    padding-block: var(--space-1);
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  }
+
+  .site-header__nav a:hover,
+  .site-header__nav a[aria-current='page'] {
+    color: var(--color-primary);
+    border-color: var(--color-accent);
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .site-header__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.4em;
+    height: 2.4em;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .site-header__toggle span {
+    display: block;
+    height: 2px;
+    background: var(--color-primary-strong);
+    margin-inline: auto;
+    width: 60%;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  @media (max-width: 860px) {
+    .site-header__nav {
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      display: none;
+    }
+
+    .site-header__nav[data-open='true'] {
+      display: block;
+    }
+
+    .site-header__nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: var(--space-3) var(--container-padding);
+    }
+
+    .site-header__nav li {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .site-header__nav a {
+      display: block;
+      padding-block: var(--space-3);
+    }
+
+    .site-header__actions {
+      display: none;
+    }
+
+    .site-header__toggle {
+      display: flex;
+    }
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import BookButton from '@/components/BookButton.astro';
+import { serviceCategories } from '@/data/services';
+import { buildBreadcrumbSchema } from '@/lib/schema';
+import { withBase } from '@/lib/paths';
+import { ROUTES } from '@/lib/routes';
+
+const title = 'Послуги та ціни';
+const description =
+  'Каталог послуг салону краси Lady Victoria: манікюр, педикюр, стрижки, нарощування волосся, брови, фарбування, косметологія. Актуальні ціни та тривалість процедур.';
+
+const canonical = Astro.url.href;
+const breadcrumbs = buildBreadcrumbSchema([
+  { name: 'Головна', url: new URL(withBase(ROUTES.home), Astro.site).toString() },
+  { name: title, url: canonical },
+]);
+---
+
+<BaseLayout title={title} description={description} structuredData={[breadcrumbs]}>
+  <section class="section container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Каталог послуг</span>
+      <h1>Послуги та ціни</h1>
+      <p class="lead">
+        Оберіть напрямок, щоб переглянути повний прайс і тривалість процедур. Остаточну вартість завжди можна уточнити
+        перед записом.
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      {serviceCategories.map((category) => <ServiceCard category={category} />)}
+    </div>
+
+    <div class="poslugy-cta" data-reveal>
+      <h2>Не знайшли потрібну процедуру?</h2>
+      <p class="lead">Напишіть нам — підберемо процедуру та майстра індивідуально під ваш запит.</p>
+      <BookButton instagramLabel="Написати в Instagram" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .poslugy-cta {
+    margin-top: var(--space-8);
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .poslugy-cta h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .poslugy-cta .lead {
+    margin-bottom: var(--space-5);
+  }
+</style>

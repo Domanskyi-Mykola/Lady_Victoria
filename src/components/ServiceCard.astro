@@ -1,0 +1,86 @@
+---
+import type { ServiceCategory } from '@/data/services';
+import { getStartingPrice } from '@/data/services';
+import { withBase } from '@/lib/paths';
+import { ROUTES } from '@/lib/routes';
+
+interface Props {
+  category: ServiceCategory;
+}
+
+const { category } = Astro.props;
+const href = withBase(ROUTES.service(category.slug));
+---
+
+<a href={href} class="service-card card" data-reveal>
+  <div class="service-card__image">
+    <img src={withBase(`/images/services/${category.slug}.svg`)} alt="" loading="lazy" width="480" height="320" />
+    <span class="badge service-card__price">{getStartingPrice(category)}</span>
+  </div>
+  <div class="service-card__body">
+    <h3>{category.title}</h3>
+    <p>{category.short}</p>
+    <span class="service-card__link">Детальніше →</span>
+  </div>
+</a>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard);
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-card__image {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  .service-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-card__price {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    background: var(--color-surface);
+  }
+
+  .service-card__body {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+  }
+
+  .service-card__body h3 {
+    margin-bottom: 0;
+  }
+
+  .service-card__body p {
+    color: var(--color-text-soft);
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .service-card__link {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-top: var(--space-2);
+  }
+</style>

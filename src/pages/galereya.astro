@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Gallery from '@/components/Gallery.astro';
+import { site } from '@/data/site';
+import { gallery } from '@/data/gallery';
+
+const title = 'Галерея робіт';
+const description = `Галерея робіт салону краси ${site.name}: манікюр, педикюр, стрижки, нарощування волосся, брови, фарбування та косметологічні процедури.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Галерея</span>
+      <h1>Приклади наших робіт</h1>
+      <p class="lead">Оберіть категорію, щоб переглянути роботи за напрямком.</p>
+    </div>
+
+    <Gallery items={gallery} showFilters />
+  </section>
+</BaseLayout>

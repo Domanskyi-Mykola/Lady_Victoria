@@ -1,0 +1,19 @@
+<svg width="480" height="480" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="g3" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#4d1a2c"/>
+      <stop offset="100%" stop-color="#3a1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#g3)"/>
+  <circle cx="408.0" cy="408.0" r="153.6" fill="#b98a4a" opacity="0.10"/>
+  <circle cx="96.0" cy="384.0" r="67.2" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.22"/>
+    <circle cx="96.0" cy="384.0" r="93.2" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.17"/>
+    <circle cx="96.0" cy="384.0" r="119.2" fill="none" stroke="#dcbd8c" stroke-width="1.4" opacity="0.12"/>
+  <g transform="translate(240.0,240.0) scale(2.400)" stroke="#f2e4cd" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    
+      <path d="M-14,-46 C-14,-20 -34,-4 -34,16 C-34,32 -20,44 -14,44 C-8,44 6,32 6,16 C6,-4 -14,-20 -14,-46 Z"/>
+      <path d="M20,-14 C20,4 6,14 6,28 C6,38 15,46 20,46 C25,46 34,38 34,28 C34,14 20,4 20,-14 Z" opacity="0.65"/>
+    
+  </g>
+</svg>

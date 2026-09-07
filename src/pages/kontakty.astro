@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookButton from '@/components/BookButton.astro';
+import PhoneBar from '@/components/PhoneBar.astro';
+import MapEmbed from '@/components/MapEmbed.astro';
+import { site } from '@/data/site';
+
+const title = 'Контакти';
+const description = `Контакти салону краси ${site.name}: адреса, телефон, графік роботи та карта проїзду.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="section container contacts">
+    <div>
+      <span class="eyebrow">Як нас знайти</span>
+      <h1>Контакти</h1>
+
+      <dl class="contacts__list">
+        <div>
+          <dt>Адреса</dt>
+          <dd>{site.address.full}</dd>
+        </div>
+        <div>
+          <dt>Телефон</dt>
+          <dd><PhoneBar variant="block" /></dd>
+        </div>
+        {
+          site.email && (
+            <div>
+              <dt>Email</dt>
+              <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+            </div>
+          )
+        }
+        <div>
+          <dt>Графік роботи</dt>
+          <dd>
+            <ul class="contacts__hours">
+              {
+                site.hours.map((entry) => (
+                  <li>
+                    <span>{entry.days}</span>
+                    <span>{entry.time}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </dd>
+        </div>
+      </dl>
+
+      <div class="contacts__actions">
+        <BookButton instagramLabel="Написати в Instagram" />
+      </div>
+    </div>
+
+    <div>
+      <MapEmbed />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .contacts__list {
+    margin: var(--space-6) 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .contacts__list dt {
+    font-size: var(--fs-small);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    margin-bottom: var(--space-1);
+  }
+
+  .contacts__list dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .contacts__hours {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-1);
+    font-weight: 500;
+  }
+
+  .contacts__hours li {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .contacts__hours span:first-child {
+    min-width: 14em;
+    color: var(--color-text-soft);
+    font-weight: 400;
+  }
+
+  @media (max-width: 860px) {
+    .contacts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import '@/styles/global.css';
+import { site } from '@/data/site';
+import { withBase } from '@/lib/paths';
+import { buildLocalBusinessSchema } from '@/lib/schema';
+import { toJsonLd } from '@/lib/json-ld';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import StickyMobileCTA from '@/components/StickyMobileCTA.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  structuredData?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { title, description, image = '/images/og-image.jpg', structuredData = [], noindex = false } = Astro.props;
+
+const pageTitle = title === site.name ? title : `${title} — ${site.name}`;
+const canonicalUrl = Astro.url.href;
+const ogImageUrl = new URL(withBase(image), Astro.site).toString();
+const logoUrl = new URL(withBase('/images/og-image.jpg'), Astro.site).toString();
+
+const csp = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "style-src 'self'",
+  "script-src 'self'",
+  'frame-src https://www.google.com',
+  "form-action 'none'",
+  'upgrade-insecure-requests',
+].join('; ');
+
+const jsonLdBlocks = [buildLocalBusinessSchema(canonicalUrl, logoUrl), ...structuredData];
+---
+
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#3a1220" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="uk_UA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+
+    {
+      jsonLdBlocks.map((block) => (
+        <script type="application/ld+json" is:inline set:html={toJsonLd(block)} />
+      ))
+    }
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Перейти до змісту</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <StickyMobileCTA />
+    <script type="module" is:inline src={withBase('/scripts/reveal.js')}></script>
+    <script type="module" is:inline src={withBase('/scripts/mobile-nav.js')}></script>
+    <script type="module" is:inline src={withBase('/scripts/phone-copy.js')}></script>
+  </body>
+</html>
+
+<style>
+  body {
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 720px) {
+    body {
+      padding-bottom: var(--sticky-cta-height);
+    }
+  }
+</style>
