@@ -12,9 +12,9 @@
     "check:links": "node tools/check-links.mjs"
   },
   "dependencies": {
-    "astro": "^7.3.1",
+    "astro": "^7.3.2",
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/check": "^0.9.10",
-    "typescript": "^5.7.3"
+    "typescript": "^7.0.2"
   }
 }
